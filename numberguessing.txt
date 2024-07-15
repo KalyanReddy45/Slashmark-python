@@ -1,0 +1,35 @@
+import random
+
+def number_guessing_game():
+    name = input("May I ask you for your name? ")
+    print(f"{name}, we are going to play a game. I am thinking of a number between 1 and 200")
+    
+    play_again = True
+    
+    while play_again:
+        number = random.randint(1, 200)
+        guessed_correctly = False
+        
+        while not guessed_correctly:
+            guess = int(input("Go ahead. Guess! "))
+            
+            if guess < number:
+                print("The guess of the number that you have entered is too low")
+                print("Try Again!")
+            elif guess > number:
+                print("The guess of the number that you have entered is too high")
+                print("Try Again!")
+            else:
+                guessed_correctly = True
+                print("Congratulations! You've guessed the correct number!")
+        
+        if not guessed_correctly:
+            print(f"Nope. The number I was thinking of was {number}")
+        
+        play_again_input = input("Do you want to play again? (yes/no) ").strip().lower()
+        play_again = play_again_input == 'yes'
+    
+    print("Thank you for playing!")
+
+# Start the game
+number_guessing_game()
