@@ -1,0 +1,91 @@
+def display_tasks(tasks):
+  """Prints the current to-do list."""
+  if not tasks:
+    print("There are no tasks in the list.")
+  else:
+    print("To-Do List:")
+    for i, task in enumerate(tasks, start=1):
+      print(f"{i}. {task}")
+
+def add_task(tasks):
+  """Prompts the user for a new task and adds it to the list."""
+  new_task = input("Enter a new task: ")
+  tasks.append(new_task)
+  print("Task added!")
+
+def mark_completed(tasks):
+  """Prompts the user for a task number and marks it as completed."""
+  if not tasks:
+    print("There are no tasks to mark as completed.")
+    return
+
+  display_tasks(tasks)
+  while True:
+    try:
+      task_number = int(input("Enter the number of the task to mark as completed: "))
+      if 1 <= task_number <= len(tasks):
+        tasks[task_number - 1] = f"[COMPLETED] {tasks[task_number - 1]}"
+        print("Task marked as completed!")
+        return
+      else:
+        print("Invalid task number. Please try again.")
+    except ValueError:
+      print("Invalid input. Please enter a number.")
+
+def remove_task(tasks):
+  """Prompts the user for a task number and removes it from the list."""
+  if not tasks:
+    print("There are no tasks to remove.")
+    return
+
+  display_tasks(tasks)
+  while True:
+    try:
+      task_number = int(input("Enter the number of the task to remove: "))
+      if 1 <= task_number <= len(tasks):
+        del tasks[task_number - 1]
+        print("Task removed!")
+        return
+      else:
+        print("Invalid task number. Please try again.")
+    except ValueError:
+      print("Invalid input. Please enter a number.")
+
+def main():
+  """The main loop of the to-do list application."""
+  tasks = []
+  while True:
+    print("\nTo-Do List App")
+    print("1. Display To-Do List")
+    print("2. Add a Task")
+    print("3. Mark a Task as Completed")
+    print("4. Remove a Task")
+    print("5. Quit")
+    try:
+      choice = input("Enter your choice: ")
+
+      # Handle Ctrl+A interrupt using a try-except block
+      if choice == chr(1):  # Check for Ctrl+A character
+        print("\n** Program interrupted. **")
+        break
+
+      choice = int(choice)
+      if 1 <= choice <= 5:
+        if choice == 1:
+          display_tasks(tasks)
+        elif choice == 2:
+          add_task(tasks)
+        elif choice == 3:
+          mark_completed(tasks)
+        elif choice == 4:
+          remove_task(tasks)
+        else:
+          print("Exiting To-Do List...")
+          break
+      else:
+        print("Invalid choice. Please try again.")
+    except ValueError:
+      print("Invalid input. Please enter a number.")
+
+if __name__ == "__main__":
+  main()
